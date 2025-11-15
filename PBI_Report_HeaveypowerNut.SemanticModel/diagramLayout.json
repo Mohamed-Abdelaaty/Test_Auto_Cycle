@@ -1,0 +1,99 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 208.80000305175781
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 581.40156210222608,
+            "y": 0
+          },
+          "nodeIndex": "dimcustomer",
+          "nodeLineageTag": "0010a361-c19b-4d60-9ec3-bcaba6f74109",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 169.54997534553314,
+            "y": 275.25134416428057
+          },
+          "nodeIndex": "dimproduct",
+          "nodeLineageTag": "9c51e8c0-0170-4d60-a809-b4b6e51050b0",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -49.904202066222979
+          },
+          "nodeIndex": "freturns",
+          "nodeLineageTag": "6b286398-3ce6-4a86-aad6-c1c670cf793f",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 613.4571587609413,
+            "y": 354.5365181105517
+          },
+          "nodeIndex": "fsales",
+          "nodeLineageTag": "b4d7f790-cb93-4c6e-8c05-bbf7925b432e",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1013.4571587609413,
+            "y": 40.768259055275848
+          },
+          "nodeIndex": "Calculation_1st_Project",
+          "nodeLineageTag": "06397794-84bd-453e-a8c5-9c2365d117ca",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 971.4571587609413,
+            "y": 212.76825905527585
+          },
+          "nodeIndex": "Calendar",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

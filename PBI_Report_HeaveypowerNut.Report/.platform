@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "PBI_Report_HeaveypowerNut"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "78940231-5ea3-41a9-8863-bff18596e871"
+  }
+}

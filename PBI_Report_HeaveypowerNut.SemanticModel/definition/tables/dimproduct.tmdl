@@ -1,0 +1,64 @@
+table dimproduct
+	lineageTag: 9c51e8c0-0170-4d60-a809-b4b6e51050b0
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 64ae60d6-7165-4dc7-beef-fa664d22b98f
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 473b9bab-f501-4f7e-bd37-f589fb25833b
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: 6f9dcebe-404d-4b97-9caa-3a481cddfd5e
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column Detail
+		dataType: string
+		lineageTag: 6746a37e-79cc-4af0-8f47-5a09c0049fb6
+		summarizeBy: none
+		sourceColumn: Detail
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubcategoryName
+		dataType: string
+		lineageTag: 063ff144-9885-4147-a38e-0b84bc157e83
+		summarizeBy: none
+		sourceColumn: SubcategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryName
+		dataType: string
+		lineageTag: c70ff041-406b-4f39-a01c-21201d47ee4f
+		summarizeBy: none
+		sourceColumn: CategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimproduct = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("."),
+				    HeavyPowerNutritionDWH = Source{[Name="HeavyPowerNutritionDWH"]}[Data],
+				    dbo_dimproduct = HeavyPowerNutritionDWH{[Schema="dbo",Item="dimproduct"]}[Data]
+				in
+				    dbo_dimproduct
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dimcustomer","dimproduct","fsales","freturns","Calculation_1st_Project"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dimcustomer
+ref table dimproduct
+ref table fsales
+ref table DateTableTemplate_561b71eb-0449-42f3-8e14-937f9ba7273c
+ref table LocalDateTable_707662a1-3541-4034-8a86-f70fcbcc70eb
+ref table LocalDateTable_a7ce0334-d9ed-42fd-9627-9c8b3aada98f
+ref table freturns
+ref table LocalDateTable_d251e6c9-1a8d-433f-a416-ee573b6c00fe
+ref table Calculation_1st_Project
+ref table Calendar
+ref table LocalDateTable_7075aa0a-a196-4aeb-a197-2d0fd9e6be73
+
+ref cultureInfo en-US
+

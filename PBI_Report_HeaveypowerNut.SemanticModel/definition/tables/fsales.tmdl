@@ -1,0 +1,143 @@
+table fsales
+	lineageTag: b4d7f790-cb93-4c6e-8c05-bbf7925b432e
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7a339101-db0b-45b4-8149-abd4349fd8bf
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DueDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f32ba204-9a50-487a-841e-8c2a5a465f57
+		summarizeBy: none
+		sourceColumn: DueDate
+
+		variation Variation
+			isDefault
+			relationship: 394fc5db-e3de-473f-a696-fc4af71a8f40
+			defaultHierarchy: LocalDateTable_707662a1-3541-4034-8a86-f70fcbcc70eb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ShipDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ecb5c960-ccff-4204-97ce-8877f0530c74
+		summarizeBy: none
+		sourceColumn: ShipDate
+
+		variation Variation
+			isDefault
+			relationship: 9115f541-011e-44ee-b1c0-1845c91ccc9c
+			defaultHierarchy: LocalDateTable_a7ce0334-d9ed-42fd-9627-9c8b3aada98f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SalesOrderNumber
+		dataType: string
+		lineageTag: bee37020-56b9-4ebd-bd23-97fb7d345d83
+		summarizeBy: none
+		sourceColumn: SalesOrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ac890a6-acb2-4a0b-874a-48b90f741e58
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f535ce99-4636-4869-a252-80777c9f4d98
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: c70be6e0-4200-434a-9d15-f5d8f6df5041
+		summarizeBy: sum
+		sourceColumn: OrderQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 88819c3a-4876-47d3-9254-c8e2f0f8acf3
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitCost
+		dataType: double
+		lineageTag: 8cdcefeb-19bd-49c6-961e-3a52c8d54d0e
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountPct
+		dataType: double
+		lineageTag: 08e34215-d6e6-4cdc-9640-54552560eae0
+		summarizeBy: sum
+		sourceColumn: DiscountPct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount
+		dataType: double
+		lineageTag: b7dd5928-4aa2-4032-8aba-7873414f6c3d
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NetSales
+		dataType: double
+		lineageTag: 3a38d65d-da64-4bd0-b6de-42cccaf4b9eb
+		summarizeBy: sum
+		sourceColumn: NetSales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fsales = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("."),
+				    HeavyPowerNutritionDWH = Source{[Name="HeavyPowerNutritionDWH"]}[Data],
+				    dbo_fsales = HeavyPowerNutritionDWH{[Schema="dbo",Item="fsales"]}[Data]
+				in
+				    dbo_fsales
+
+	annotation PBI_ResultType = Table
+

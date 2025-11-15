@@ -1,0 +1,52 @@
+table Calendar
+	lineageTag: f467b193-3093-47b3-9dc5-be3e0bd55eae
+
+	column Date
+		formatString: Short Date
+		lineageTag: d874c0f5-533d-44ad-8c95-11bdbf444bec
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: ec658691-0167-4cf4-bfcf-21b78f4596d3
+			defaultHierarchy: LocalDateTable_7075aa0a-a196-4aeb-a197-2d0fd9e6be73.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Month = MONTH('Calendar'[Date])
+		formatString: 0
+		lineageTag: ad28db2c-b070-404a-b733-dc148d4a5e27
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_Name = FORMAT('Calendar'[Date],"MMM")
+		lineageTag: 43dba8a2-dcc0-4035-b92b-fe5b8e84129e
+		summarizeBy: none
+		sortByColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Qarter = "Q"&QUARTER('Calendar'[Date])
+		lineageTag: ff7470fa-5867-4edb-b23a-3fa9a8d5deaa
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR('Calendar'[Date])
+		formatString: 0
+		lineageTag: a0ae7d2c-7116-4165-9887-5a1a89bc64ac
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = calculated
+		mode: import
+		source = CALENDAR("10/1/2010","30/11/2013")
+
+	annotation PBI_Id = da552090587d4350907b6080917940ce
+
