@@ -1,0 +1,7 @@
+createOrReplace
+
+	ref table Calculation_1st_Project
+
+		measure YoY(Revenue) = YoY_DIFF([Total Sales])
+			lineageTag: 347ddfc6-2a4c-4ea2-a15f-eab09a1061bd
+

@@ -10,7 +10,7 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["dimcustomer","dimproduct","fsales","freturns","Calculation_1st_Project"]
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","TMDL-Extension","TMDLView_Desktop"]
 
 ref table dimcustomer
 ref table dimproduct

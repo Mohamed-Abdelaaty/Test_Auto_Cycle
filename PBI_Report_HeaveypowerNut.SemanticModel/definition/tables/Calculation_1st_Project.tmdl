@@ -1,13 +1,137 @@
 table Calculation_1st_Project
 	lineageTag: 06397794-84bd-453e-a8c5-9c2365d117ca
 
-	column Column1
-		dataType: string
-		lineageTag: 3b2ad315-2c14-484f-8aea-1f32d586dac9
-		summarizeBy: none
-		sourceColumn: Column1
+	measure 'Total Sales' = SUM(fsales[NetSales])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
 
-		annotation SummarizationSetBy = Automatic
+	measure 'Total Units Sold' = SUM(fsales[OrderQuantity])
+		formatString: #,0
+		lineageTag: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
+
+	measure 'Total Cost' = SUMX(fsales, fsales[OrderQuantity] * fsales[UnitCost])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f
+
+	measure 'Gross Profit' = [Total Sales] - [Total Cost]
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+
+	measure 'Gross Profit %' = IF([Total Sales] = 0, 0, [Gross Profit] / [Total Sales])
+		formatString: 0.0%
+		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b
+
+	measure 'Average Order Value' = IF(DISTINCTCOUNT(fsales[SalesOrderNumber]) = 0, 0, [Total Sales] / DISTINCTCOUNT(fsales[SalesOrderNumber]))
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c
+
+	measure 'Average Unit Price' = IF([Total Units Sold] = 0, 0, [Total Sales] / [Total Units Sold])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+
+	measure 'Total Discount Amount' = SUM(fsales[Discount])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+
+	measure 'Average Discount %' = IF([Total Sales] = 0, 0, [Total Discount Amount] / ([Total Sales] + [Total Discount Amount]))
+		formatString: 0.0%
+		lineageTag: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+
+	measure 'Total Return Units' = SUM(freturns[ReturnQuantity])
+		formatString: #,0
+		lineageTag: 0d1e2f3a-4b5c-6d7e-8f9a-0b1c2d3e4f5a
+
+	measure 'Total Return Amount' = SUM(freturns[ReturnAmount])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 1e2f3a4b-5c6d-7e8f-9a0b-1c2d3e4f5a6b
+
+	measure 'Return Rate %' = IF([Total Units Sold] = 0, 0, [Total Return Units] / [Total Units Sold])
+		formatString: 0.0%
+		lineageTag: 2f3a4b5c-6d7e-8f9a-0b1c-2d3e4f5a6b7c
+
+	measure 'Net Sales After Returns' = [Total Sales] - [Total Return Amount]
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+
+	measure 'Unique Customers' = DISTINCTCOUNT(fsales[CustomerKey])
+		formatString: #,0
+		lineageTag: 4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e
+
+	measure 'Unique Products' = DISTINCTCOUNT(fsales[ProductKey])
+		formatString: #,0
+		lineageTag: 5c6d7e8f-9a0b-1c2d-3e4f-5a6b-7c8d9e0f
+
+	measure 'Unique Orders' = DISTINCTCOUNT(fsales[SalesOrderNumber])
+		formatString: #,0
+		lineageTag: 6d7e8f9a-0b1c-2d3e-4f5a-6b7c8d9e0f1a
+
+	measure 'Sales per Customer' = IF([Unique Customers] = 0, 0, [Total Sales] / [Unique Customers])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b
+
+	measure 'Cost per Unit' = IF([Total Units Sold] = 0, 0, [Total Cost] / [Total Units Sold])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c
+
+	measure 'YoY(Revenue)' = ```
+		VAR current_year = [Total Sales]
+		VAR Ly = CALCULATE([Total Sales], DATEADD('Calendar'[Date], -1, YEAR))
+		VAR diff = DIVIDE(current_year - Ly, Ly)
+		VAR design = FORMAT(diff, "0.0%;0.0%")
+		RETURN
+		IF(diff > 0,
+			UNICHAR(129029) & " " & design,
+			UNICHAR(129031) & " " & design)
+		```
+		lineageTag: 347ddfc6-2a4c-4ea2-a15f-eab09a1061bd
+
+	measure 'YoY(Total Cost)' = ```
+		VAR current_year = [Total Cost]
+		VAR Ly = CALCULATE([Total Cost], DATEADD('Calendar'[Date], -1, YEAR))
+		VAR diff = DIVIDE(current_year - Ly, Ly)
+		VAR design = FORMAT(diff, "0.0%;0.0%")
+		RETURN
+		IF(diff > 0,
+			UNICHAR(129029) & " " & design,
+			UNICHAR(129031) & " " & design)
+		```
+		lineageTag: a1b2c3d4-1111-2222-3333-444455556666
+
+	measure 'YoY(Gross Profit)' = ```
+		VAR current_year = [Gross Profit]
+		VAR Ly = CALCULATE([Gross Profit], DATEADD('Calendar'[Date], -1, YEAR))
+		VAR diff = DIVIDE(current_year - Ly, Ly)
+		VAR design = FORMAT(diff, "0.0%;0.0%")
+		RETURN
+		IF(diff > 0,
+			UNICHAR(129029) & " " & design,
+			UNICHAR(129031) & " " & design)
+		```
+		lineageTag: b2c3d4e5-2222-3333-4444-555566667777
+
+	measure 'YoY(Total Return Amount)' = ```
+		VAR current_year = [Total Return Amount]
+		VAR Ly = CALCULATE([Total Return Amount], DATEADD('Calendar'[Date], -1, YEAR))
+		VAR diff = DIVIDE(current_year - Ly, Ly)
+		VAR design = FORMAT(diff, "0.0%;0.0%")
+		RETURN
+		IF(diff > 0,
+			UNICHAR(129029) & " " & design,
+			UNICHAR(129031) & " " & design)
+		```
+		lineageTag: c3d4e5f6-3333-4444-5555-666677778888
+
+	measure 'YoY(Average Order Value)' = ```
+		VAR current_year = [Average Order Value]
+		VAR Ly = CALCULATE([Average Order Value], DATEADD('Calendar'[Date], -1, YEAR))
+		VAR diff = DIVIDE(current_year - Ly, Ly)
+		VAR design = FORMAT(diff, "0.0%;0.0%")
+		RETURN
+		IF(diff > 0,
+			UNICHAR(129029) & " " & design,
+			UNICHAR(129031) & " " & design)
+		```
+		lineageTag: d4e5f6a7-4444-5555-6666-777788889999
 
 	partition Calculation_1st_Project = m
 		mode: import

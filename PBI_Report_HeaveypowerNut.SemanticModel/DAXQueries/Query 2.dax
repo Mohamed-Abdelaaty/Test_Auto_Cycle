@@ -1,0 +1,10 @@
+DEFINE
+FUNCTION YoY_DIFF= (Measure_:expr) => 
+VAR current_year= Measure_
+VAR Ly= CALCULATE(Measure_,DATEADD('Calendar'[Date],-1,YEAR))
+Var diff= DIVIDE(current_year-ly,ly)
+VAR design = FORMAT(diff,"0.0%;0.0%")
+RETURN
+IF(diff>0,
+UNICHAR(129029)&" "&design,
+UNICHAR(129031)&" "&design)
